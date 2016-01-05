@@ -1,0 +1,1 @@
+Dir['./*test.rb'].each {|test_suite| require test_suite }
