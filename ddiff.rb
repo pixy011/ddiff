@@ -56,7 +56,6 @@ end
 
 case DDiff::Config.instance.action
   when 'snapshot'
-    puts 'patate'
     DDiff::Snapshot.persist(snapshot(), DDiff::Config.instance.snapshot_out)
   when 'compare'
     compare(snapshot())
