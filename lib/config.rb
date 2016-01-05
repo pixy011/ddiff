@@ -10,7 +10,13 @@ module DDiff
           :root => './',
           :snapshot_in => './snapshot_in.json',
           :snapshot_out => './snapshot.json',
-          :diff_out => './diff.json'
+          :diff_out => './diff.json',
+          :whitelist_file => nil,
+          :ignore => [],
+
+          #Internal
+          :source_type => 'recurse', # recurse, whitelist
+          :paths => ['./'],
       }
     end
 

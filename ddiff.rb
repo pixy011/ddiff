@@ -12,6 +12,8 @@ begin
 
     options.on('--root PATH', 'Select a directory to snapshot/compare. Compare should only be done on snapshots taken from the same directory') do |path|
       DDiff::Config.instance.root = path
+      DDiff::Config.instance.source_type = 'recurse'
+      DDiff::Config.instance.paths = [path]
     end
 
     options.on('--snapshot-in PATH', 'Snapshot to compare to') do |path|
@@ -27,6 +29,16 @@ begin
       DDiff::Config.instance.diff_out = path
     end
 
+    options.on('--whitelist-file', 'Specify a file containing the white listed paths separated by newlines') do |path|
+      DDiff::Config.instance.whitelist_file = path
+      DDiff::Config.instance.source_type = 'whitelist'
+      DDiff::Config.instance.paths = DDiff::FileSystem.parse_whitelist()
+    end
+
+    options.on('--ignore', 'Comma separated list of absolute file paths to ignore (works for files only)') do |string|
+      DDiff::Config.instance.ignore = string.split(',')
+    end
+
     options.on('-h', '--help', 'Prints this help') do
       puts options
     end
@@ -40,7 +52,7 @@ end
 def snapshot
   tree = DDiff::Tree.new
   file_system = DDiff::FileSystem.create()
-  file_system.recurse do |entry|
+  file_system.walk do |entry|
     tree.add(DDiff::FileInfo.new(entry))
   end
 
