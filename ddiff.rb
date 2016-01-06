@@ -17,7 +17,6 @@ begin
 
     options.on('-r', '--root PATH', 'Select a directory to snapshot/compare. Compare should only be done on snapshots taken from the same directory') do |path|
       DDiff::Config.instance.root = path
-      DDiff::Config.instance.source_type = 'recurse'
       DDiff::Config.instance.paths = [path]
     end
 
@@ -36,7 +35,6 @@ begin
 
     options.on('-w', '--whitelist-file', 'Specify a file containing the white listed paths separated by newlines') do |path|
       DDiff::Config.instance.whitelist_file = path
-      DDiff::Config.instance.source_type = 'whitelist'
       DDiff::Config.instance.paths = DDiff::FileSystem.parse_whitelist()
     end
 

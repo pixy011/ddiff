@@ -15,7 +15,6 @@ module DDiff
           :ignore => [],
 
           #Internal
-          :source_type => 'recurse', # recurse, whitelist
           :paths => ['./'],
       }
     end
